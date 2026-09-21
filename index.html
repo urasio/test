@@ -1,0 +1,1424 @@
+<!DOCTYPE html>
+<html lang="ko" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>대한민국 AI 정책 허브 | K-AI 글로벌 3대 강국(G3) 대도약</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cyber: {
+                            blue: '#00d2ff',
+                            purple: '#9d4edd',
+                            neon: '#00f5d4',
+                            pink: '#ff007f',
+                            deep: '#060913',
+                            card: '#0c1222'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Pretendard', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'sans-serif']
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'spin-slow': 'spin 20s linear infinite',
+                        'spin-reverse': 'spinReverse 25s linear infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'scan': 'scanLine 3s linear infinite',
+                        'shimmer': 'shimmer 2.5s linear infinite',
+                    },
+                    keyframes: {
+                        spinReverse: {
+                            '0%': { transform: 'rotate(360deg)' },
+                            '100%': { transform: 'rotate(0deg)' }
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-14px)' }
+                        },
+                        scanLine: {
+                            '0%': { top: '0%' },
+                            '50%': { top: '95%' },
+                            '100%': { top: '0%' }
+                        },
+                        shimmer: {
+                            '0%': { backgroundPosition: '-200% 0' },
+                            '100%': { backgroundPosition: '200% 0' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
+        body {
+            font-family: 'Pretendard', sans-serif;
+            background-color: #050711;
+            color: #f1f5f9;
+            overflow-x: hidden;
+        }
+
+        /* Futuristic Background Grid */
+        .cyber-grid {
+            background-image: 
+                linear-gradient(to right, rgba(0, 210, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 210, 255, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+
+        /* Hologram & Shimmer Text */
+        .holo-text {
+            background: linear-gradient(135deg, #00f5d4 0%, #00b4d8 30%, #9d4edd 70%, #ff007f 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% auto;
+            animation: holoFlow 5s ease infinite alternate;
+        }
+
+        @keyframes holoFlow {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+
+        /* Glassmorphism & Neon Glow */
+        .cyber-card {
+            background: radial-gradient(120% 120% at 50% 0%, rgba(20, 29, 56, 0.7) 0%, rgba(10, 15, 30, 0.85) 100%);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(0, 210, 255, 0.15);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cyber-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 245, 212, 0.1), transparent);
+            transition: 0.5s;
+            pointer-events: none;
+        }
+
+        .cyber-card:hover::before {
+            left: 100%;
+        }
+
+        .cyber-card:hover {
+            border-color: rgba(0, 245, 212, 0.5);
+            box-shadow: 0 12px 40px -10px rgba(0, 210, 255, 0.4), inset 0 0 20px rgba(0, 245, 212, 0.05);
+            transform: translateY(-4px);
+        }
+
+        /* Dynamic Spotlight Effect on Cards */
+        .spotlight-card {
+            position: relative;
+        }
+        .spotlight-card::after {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: inherit;
+            padding: 1.5px;
+            background: radial-gradient(400px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(0, 245, 212, 0.6), transparent 50%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        .spotlight-card:hover::after {
+            opacity: 1;
+        }
+
+        /* Glowing Neon Orbs */
+        .glow-orb-cyan {
+            position: absolute;
+            filter: blur(140px);
+            background: radial-gradient(circle, rgba(0, 245, 212, 0.35) 0%, rgba(0, 180, 216, 0.1) 70%, transparent 100%);
+            pointer-events: none;
+        }
+        .glow-orb-purple {
+            position: absolute;
+            filter: blur(150px);
+            background: radial-gradient(circle, rgba(157, 78, 221, 0.35) 0%, rgba(114, 9, 183, 0.1) 70%, transparent 100%);
+            pointer-events: none;
+        }
+        .glow-orb-pink {
+            position: absolute;
+            filter: blur(150px);
+            background: radial-gradient(circle, rgba(255, 0, 127, 0.25) 0%, rgba(247, 37, 133, 0.05) 70%, transparent 100%);
+            pointer-events: none;
+        }
+
+        /* Neon Border Pulse */
+        .neon-badge {
+            box-shadow: 0 0 15px rgba(0, 245, 212, 0.3), inset 0 0 10px rgba(0, 245, 212, 0.15);
+        }
+
+        /* Tech HUD Corner Accents */
+        .hud-corner {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-color: #00f5d4;
+            pointer-events: none;
+        }
+        .hud-tl { top: 6px; left: 6px; border-top: 2px solid; border-left: 2px solid; }
+        .hud-tr { top: 6px; right: 6px; border-top: 2px solid; border-right: 2px solid; }
+        .hud-bl { bottom: 6px; left: 6px; border-bottom: 2px solid; border-left: 2px solid; }
+        .hud-br { bottom: 6px; right: 6px; border-bottom: 2px solid; border-right: 2px solid; }
+    </style>
+</head>
+<body class="selection:bg-cyan-400 selection:text-black antialiased relative">
+
+    <!-- Interactive Neural Network Canvas Background -->
+    <canvas id="neuralCanvas" class="fixed inset-0 pointer-events-none z-0 opacity-45"></canvas>
+
+    <!-- Ambient Glowing Nebulas -->
+    <div class="glow-orb-cyan w-[600px] h-[600px] -top-32 -left-32 z-0"></div>
+    <div class="glow-orb-purple w-[700px] h-[700px] top-1/4 -right-48 z-0"></div>
+    <div class="glow-orb-pink w-[650px] h-[650px] top-2/3 -left-48 z-0"></div>
+    <div class="glow-orb-cyan w-[600px] h-[600px] -bottom-32 right-10 z-0"></div>
+
+    <!-- Outer Cyber Grid Overlay -->
+    <div class="fixed inset-0 cyber-grid pointer-events-none z-0 opacity-60"></div>
+
+    <!-- 1. Navigation Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-[#060913]/80 backdrop-blur-xl border-b border-cyan-500/20 shadow-[0_4px_30px_rgba(0,0,0,0.8)]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center gap-3.5 group">
+                <div class="relative w-11 h-11 rounded-xl bg-gradient-to-tr from-cyan-400 via-indigo-600 to-pink-500 p-[2px] shadow-[0_0_20px_rgba(0,245,212,0.4)] group-hover:shadow-[0_0_30px_rgba(0,245,212,0.8)] transition-all">
+                    <div class="w-full h-full bg-[#070b18] rounded-[10px] flex items-center justify-center relative overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-br from-cyan-500/20 to-transparent"></div>
+                        <i data-lucide="orbit" class="w-6 h-6 text-cyan-300 animate-spin-slow"></i>
+                    </div>
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-[10px] font-extrabold uppercase tracking-widest px-1.5 py-0.5 rounded bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">K-AI INITIATIVE</span>
+                        <span class="flex h-2 w-2 relative">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                        </span>
+                    </div>
+                    <span class="text-lg font-black text-white tracking-tight flex items-center gap-1">
+                        대한민국 <span class="holo-text">AI 정책 포털</span>
+                    </span>
+                </div>
+            </a>
+
+            <!-- Desktop Nav Items -->
+            <nav class="hidden lg:flex items-center gap-7 text-sm font-semibold text-gray-300">
+                <a href="#vision" class="hover:text-cyan-300 transition-colors flex items-center gap-1.5 py-1">
+                    <i data-lucide="compass" class="w-4 h-4 text-cyan-400"></i> 국가 비전
+                </a>
+                <a href="#core-policies" class="hover:text-cyan-300 transition-colors flex items-center gap-1.5 py-1">
+                    <i data-lucide="layers" class="w-4 h-4 text-purple-400"></i> 3대 핵심 정책
+                </a>
+                <a href="#ai-act" class="hover:text-cyan-300 transition-colors flex items-center gap-1.5 py-1">
+                    <i data-lucide="scale" class="w-4 h-4 text-pink-400"></i> AI 기본법
+                </a>
+                <a href="#infra" class="hover:text-cyan-300 transition-colors flex items-center gap-1.5 py-1">
+                    <i data-lucide="cpu" class="w-4 h-4 text-emerald-400"></i> 컴퓨팅 & AX
+                </a>
+                <a href="#diagnosis" class="hover:text-cyan-300 transition-colors flex items-center gap-1.5 py-1">
+                    <i data-lucide="stethoscope" class="w-4 h-4 text-amber-400"></i> 기업 자가진단
+                </a>
+                <a href="#faq" class="hover:text-cyan-300 transition-colors flex items-center gap-1.5 py-1">
+                    <i data-lucide="help-circle" class="w-4 h-4 text-blue-400"></i> FAQ
+                </a>
+            </nav>
+
+            <!-- CTA Action Button -->
+            <div class="hidden sm:flex items-center gap-3">
+                <a href="#diagnosis" class="relative group px-5 py-2.5 rounded-xl font-bold text-xs tracking-wider uppercase overflow-hidden text-black transition-all">
+                    <span class="absolute inset-0 bg-gradient-to-r from-cyan-400 via-indigo-300 to-pink-400 group-hover:scale-105 transition-transform"></span>
+                    <span class="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                    <span class="relative flex items-center gap-2">
+                        <i data-lucide="sparkles" class="w-4 h-4"></i>
+                        <span>규제 자가진단</span>
+                    </span>
+                </a>
+            </div>
+
+            <!-- Mobile Menu Toggle Button -->
+            <button id="mobileMenuBtn" class="lg:hidden p-2.5 rounded-xl bg-gray-900/90 text-cyan-400 border border-cyan-500/30">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobileMenu" class="hidden lg:hidden px-6 pt-3 pb-8 space-y-3 bg-[#060913]/98 border-b border-cyan-500/30 shadow-2xl">
+            <a href="#vision" class="block py-2.5 text-sm font-semibold text-gray-200 hover:text-cyan-300 border-b border-gray-800/80">국가 비전</a>
+            <a href="#core-policies" class="block py-2.5 text-sm font-semibold text-gray-200 hover:text-cyan-300 border-b border-gray-800/80">3대 핵심 정책</a>
+            <a href="#ai-act" class="block py-2.5 text-sm font-semibold text-gray-200 hover:text-cyan-300 border-b border-gray-800/80">AI 기본법 해설</a>
+            <a href="#infra" class="block py-2.5 text-sm font-semibold text-gray-200 hover:text-cyan-300 border-b border-gray-800/80">컴퓨팅 센터 & AX</a>
+            <a href="#diagnosis" class="block py-2.5 text-sm font-semibold text-gray-200 hover:text-cyan-300 border-b border-gray-800/80">기업 자가진단</a>
+            <a href="#faq" class="block py-2.5 text-sm font-semibold text-gray-200 hover:text-cyan-300">자주 묻는 질문</a>
+        </div>
+    </header>
+
+    <!-- 2. Hero Section with Interactive Holographic Core -->
+    <section class="relative pt-36 pb-28 sm:pt-44 sm:pb-36 z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left: Headline & Actions -->
+                <div class="lg:col-span-7 text-center lg:text-left">
+                    <!-- Top Pill Badge -->
+                    <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-cyan-950/80 border border-cyan-400/40 text-xs font-bold text-cyan-300 mb-8 neon-badge">
+                        <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+                        <span class="tracking-widest uppercase">Republic of Korea • AI Initiative 2026</span>
+                    </div>
+
+                    <!-- Main Catchphrase -->
+                    <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight text-white mb-8 leading-[1.12]">
+                        대한민국,<br>
+                        <span class="holo-text">글로벌 AI 3대 강국</span><br class="hidden sm:inline">
+                        (AI G3) 대도약
+                    </h1>
+
+                    <!-- Detailed Lead Description -->
+                    <p class="text-base sm:text-xl text-gray-300 font-normal leading-relaxed mb-10 max-w-2xl mx-auto lg:mx-0">
+                        대통령 직속 <strong class="text-cyan-300 font-semibold underline decoration-cyan-400/50 underline-offset-4">국가인공지능전략위원회</strong> 출범,
+                        세계 최초 수준의 <strong class="text-purple-300 font-semibold underline decoration-purple-400/50 underline-offset-4">AI 기본법</strong> 전면 시행,
+                        그리고 2.5조 원 규모 <strong class="text-pink-300 font-semibold underline decoration-pink-400/50 underline-offset-4">국가 AI 컴퓨팅 센터</strong>까지.<br class="hidden md:inline">
+                        혁신을 지원하고 신뢰를 보장하는 K-AI 생태계의 모든 정책을 확인하세요.
+                    </p>
+
+                    <!-- Interactive Buttons -->
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                        <a href="#core-policies" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-cyan-400 via-blue-600 to-purple-600 text-white font-extrabold text-sm tracking-wide shadow-[0_0_35px_rgba(0,210,255,0.4)] hover:shadow-[0_0_50px_rgba(0,210,255,0.7)] hover:scale-105 transition-all flex items-center justify-center gap-3 group">
+                            <span>핵심 정책 3대 기둥 보기</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1.5 transition-transform"></i>
+                        </a>
+                        <a href="#diagnosis" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-[#0e1628]/90 hover:bg-[#16223d] text-cyan-300 font-bold text-sm border border-cyan-400/30 hover:border-cyan-300 shadow-lg flex items-center justify-center gap-2.5 transition-all">
+                            <i data-lucide="shield-check" class="w-4 h-4 text-cyan-400"></i>
+                            <span>규제 준수 1분 자가진단</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right: Futuristic 3D-Like Quantum Core Graphic -->
+                <div class="lg:col-span-5 flex items-center justify-center relative">
+                    <div class="relative w-[320px] h-[320px] sm:w-[420px] sm:h-[420px] flex items-center justify-center">
+                        
+                        <!-- Outer Glowing Orbital Ring 1 -->
+                        <div class="absolute inset-0 rounded-full border border-cyan-400/30 animate-spin-slow border-dashed"></div>
+                        <!-- Outer Glowing Orbital Ring 2 -->
+                        <div class="absolute inset-6 rounded-full border-2 border-purple-500/30 animate-spin-reverse border-t-cyan-400 border-b-pink-500"></div>
+                        <!-- Inner Glowing Ring 3 -->
+                        <div class="absolute inset-14 rounded-full border border-pink-500/40 animate-pulse-slow"></div>
+
+                        <!-- Orbiting Tech Badges -->
+                        <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-cyan-950/90 border border-cyan-400 text-[11px] font-bold text-cyan-300 shadow-[0_0_15px_rgba(0,245,212,0.6)] flex items-center gap-1.5 animate-float">
+                            <i data-lucide="cpu" class="w-3.5 h-3.5"></i> 국가 AI 컴퓨팅
+                        </div>
+                        <div class="absolute -bottom-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-purple-950/90 border border-purple-400 text-[11px] font-bold text-purple-300 shadow-[0_0_15px_rgba(157,78,221,0.6)] flex items-center gap-1.5 animate-float" style="animation-delay: -3s;">
+                            <i data-lucide="scale" class="w-3.5 h-3.5"></i> AI 기본법 체계
+                        </div>
+                        <div class="absolute left-0 top-1/2 -translate-y-1/2 px-3 py-1 rounded-full bg-pink-950/90 border border-pink-400 text-[11px] font-bold text-pink-300 shadow-[0_0_15px_rgba(255,0,127,0.6)] flex items-center gap-1.5 animate-float" style="animation-delay: -1.5s;">
+                            <i data-lucide="shield" class="w-3.5 h-3.5"></i> AISI 안전연구소
+                        </div>
+
+                        <!-- Central Core Globe -->
+                        <div class="w-48 h-48 sm:w-60 sm:h-60 rounded-full bg-gradient-to-tr from-cyan-600 via-indigo-700 to-pink-600 p-1 shadow-[0_0_80px_rgba(0,210,255,0.6)] animate-pulse-slow flex items-center justify-center relative">
+                            <div class="w-full h-full rounded-full bg-[#070b18] flex flex-col items-center justify-center text-center p-4 relative overflow-hidden">
+                                <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-cyan-500/20 via-transparent to-transparent"></div>
+                                <i data-lucide="brain-circuit" class="w-12 h-12 text-cyan-300 mb-2 filter drop-shadow-[0_0_10px_rgba(0,245,212,0.8)]"></i>
+                                <span class="text-xs font-mono text-cyan-400 font-bold uppercase tracking-widest">K-AI CORE</span>
+                                <span class="text-2xl font-black text-white tracking-wider mt-0.5">G3 2030</span>
+                                <span class="text-[10px] text-gray-400 mt-1">대한민국 인공지능 주권</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Dynamic Live Count-Up KPI Metrics Ribbon -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-5 mt-20">
+                <div class="cyber-card spotlight-card p-6 rounded-2xl border-l-4 border-l-cyan-400">
+                    <div class="hud-corner hud-tr"></div>
+                    <div class="text-xs text-gray-400 font-mono tracking-wider mb-1">TARGET RANK</div>
+                    <div class="text-3xl sm:text-4xl font-black text-white mb-1 flex items-baseline gap-1">
+                        TOP <span class="text-cyan-400 font-mono counter" data-target="3">3</span>
+                    </div>
+                    <div class="text-xs text-cyan-300 font-semibold">글로벌 AI 3대 강국 도약</div>
+                </div>
+
+                <div class="cyber-card spotlight-card p-6 rounded-2xl border-l-4 border-l-purple-400">
+                    <div class="hud-corner hud-tr"></div>
+                    <div class="text-xs text-gray-400 font-mono tracking-wider mb-1">INFRASTRUCTURE</div>
+                    <div class="text-3xl sm:text-4xl font-black text-white mb-1 flex items-baseline gap-1">
+                        ₩<span class="text-purple-400 font-mono counter" data-target="2.5">2.5</span>조+
+                    </div>
+                    <div class="text-xs text-purple-300 font-semibold">국가 AI 컴퓨팅 센터 투자</div>
+                </div>
+
+                <div class="cyber-card spotlight-card p-6 rounded-2xl border-l-4 border-l-pink-400">
+                    <div class="hud-corner hud-tr"></div>
+                    <div class="text-xs text-gray-400 font-mono tracking-wider mb-1">LEGAL CERTAINTY</div>
+                    <div class="text-2xl sm:text-3xl font-black text-white mb-1">우선허용</div>
+                    <div class="text-xs text-pink-300 font-semibold">AI 기본법 전면 시행 & 유예 지원</div>
+                </div>
+
+                <div class="cyber-card spotlight-card p-6 rounded-2xl border-l-4 border-l-emerald-400">
+                    <div class="hud-corner hud-tr"></div>
+                    <div class="text-xs text-gray-400 font-mono tracking-wider mb-1">AX TARGET</div>
+                    <div class="text-3xl sm:text-4xl font-black text-white mb-1 flex items-baseline gap-1">
+                        <span class="text-emerald-400 font-mono counter" data-target="100">100</span>%
+                    </div>
+                    <div class="text-xs text-emerald-300 font-semibold">전 산업·공공 AI 대전환 추진</div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 3. National Vision: Safety, Innovation, Inclusiveness -->
+    <section id="vision" class="py-24 relative z-10 border-t border-cyan-500/20 bg-[#060a16]/90">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-20">
+                <span class="text-cyan-400 text-xs font-mono font-bold tracking-[0.25em] uppercase px-3 py-1 rounded-full bg-cyan-950/80 border border-cyan-400/30">
+                    NATIONAL STRATEGIC VISION
+                </span>
+                <h2 class="text-3xl sm:text-5xl font-black text-white mt-4 tracking-tight">
+                    안전 · 혁신 · 포용의 <span class="holo-text">K-AI 트라이앵글</span>
+                </h2>
+                <p class="text-gray-300 text-sm sm:text-base mt-4 font-light leading-relaxed">
+                    2024년 5월 서울에서 개최된 ‘AI 서울 정상회의’의 글로벌 합의를 바탕으로, 대한민국은 기술 혁신뿐 아니라 인류 보편의 안전과 디지털 포용성을 실현합니다.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Safety Card -->
+                <div class="cyber-card spotlight-card p-8 rounded-3xl group">
+                    <div class="hud-corner hud-tl"></div>
+                    <div class="hud-corner hud-br"></div>
+                    <div class="w-14 h-14 rounded-2xl bg-cyan-500/10 border border-cyan-400/40 flex items-center justify-center text-cyan-300 mb-6 group-hover:scale-110 group-hover:bg-cyan-400 group-hover:text-black transition-all shadow-[0_0_20px_rgba(0,245,212,0.3)]">
+                        <i data-lucide="shield-check" class="w-7 h-7"></i>
+                    </div>
+                    <span class="text-xs font-mono text-cyan-400 uppercase tracking-wider block mb-1">PILLAR 01</span>
+                    <h3 class="text-2xl font-bold text-white mb-3">안전 (Safety)</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                        판교에 설립된 <strong>AI 안전연구소(AISI)</strong>를 중심으로 통제력 상실, 딥페이크 위협, 편향성을 과학적으로 평가하고 글로벌 안전 기준을 선도합니다.
+                    </p>
+                    <div class="p-3 rounded-xl bg-cyan-950/40 border border-cyan-500/20 text-xs text-cyan-300 flex items-center gap-2">
+                        <i data-lucide="globe" class="w-4 h-4 shrink-0"></i>
+                        <span>국제 AI 안전연구소 네트워크 공조</span>
+                    </div>
+                </div>
+
+                <!-- Innovation Card -->
+                <div class="cyber-card spotlight-card p-8 rounded-3xl group">
+                    <div class="hud-corner hud-tl"></div>
+                    <div class="hud-corner hud-br"></div>
+                    <div class="w-14 h-14 rounded-2xl bg-purple-500/10 border border-purple-400/40 flex items-center justify-center text-purple-300 mb-6 group-hover:scale-110 group-hover:bg-purple-500 group-hover:text-white transition-all shadow-[0_0_20px_rgba(157,78,221,0.3)]">
+                        <i data-lucide="zap" class="w-7 h-7"></i>
+                    </div>
+                    <span class="text-xs font-mono text-purple-400 uppercase tracking-wider block mb-1">PILLAR 02</span>
+                    <h3 class="text-2xl font-bold text-white mb-3">혁신 (Innovation)</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                        '우선허용·사후규제' 원칙으로 규제 불확실성을 없애고, 국산 AI 반도체(K-NPU/PIM)와 2.5조 원 규모 국가 AI 컴퓨팅 센터로 초격차 개발 환경을 제공합니다.
+                    </p>
+                    <div class="p-3 rounded-xl bg-purple-950/40 border border-purple-500/20 text-xs text-purple-300 flex items-center gap-2">
+                        <i data-lucide="rocket" class="w-4 h-4 shrink-0"></i>
+                        <span>소버린 AI & 첨단 파운데이션 모델 육성</span>
+                    </div>
+                </div>
+
+                <!-- Inclusiveness Card -->
+                <div class="cyber-card spotlight-card p-8 rounded-3xl group">
+                    <div class="hud-corner hud-tl"></div>
+                    <div class="hud-corner hud-br"></div>
+                    <div class="w-14 h-14 rounded-2xl bg-pink-500/10 border border-pink-400/40 flex items-center justify-center text-pink-300 mb-6 group-hover:scale-110 group-hover:bg-pink-500 group-hover:text-white transition-all shadow-[0_0_20px_rgba(255,0,127,0.3)]">
+                        <i data-lucide="users" class="w-7 h-7"></i>
+                    </div>
+                    <span class="text-xs font-mono text-pink-400 uppercase tracking-wider block mb-1">PILLAR 03</span>
+                    <h3 class="text-2xl font-bold text-white mb-3">포용 (Inclusiveness)</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                        대기업과 스타트업 간의 인프라 격차를 해소하기 위한 AI 바우처 지원, 복지 위기가구 발굴 및 전 국민 AI 리터러시 교육으로 혜택을 골고루 공유합니다.
+                    </p>
+                    <div class="p-3 rounded-xl bg-pink-950/40 border border-pink-500/20 text-xs text-pink-300 flex items-center gap-2">
+                        <i data-lucide="heart-handshake" class="w-4 h-4 shrink-0"></i>
+                        <span>국민 체감형 공공 AI 일상화 실현</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Core Policies Section -->
+    <section id="core-policies" class="py-24 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-16">
+                <div>
+                    <span class="text-cyan-400 text-xs font-mono font-bold tracking-widest uppercase block mb-2">THREE POLICY PILLARS</span>
+                    <h2 class="text-3xl sm:text-5xl font-black text-white tracking-tight">
+                        대한민국 AI를 이끄는 <span class="holo-text">3대 정책 엔진</span>
+                    </h2>
+                </div>
+                <p class="text-gray-400 text-sm max-w-md mt-4 md:mt-0 font-light">
+                    컨트롤타워, 법제도, 물리적 인프라가 유기적으로 맞물려 대한민국의 AI 산업 경쟁력을 세계 최고 수준으로 끌어올립니다.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Pillar 1: Presidential Council -->
+                <div class="cyber-card spotlight-card rounded-3xl p-8 flex flex-col justify-between border-t-4 border-t-cyan-400">
+                    <div>
+                        <div class="flex items-center justify-between mb-5">
+                            <span class="text-[11px] font-mono font-bold px-3 py-1 rounded-full bg-cyan-950 text-cyan-300 border border-cyan-400/40">최상위 컨트롤타워</span>
+                            <i data-lucide="landmark" class="w-6 h-6 text-cyan-400"></i>
+                        </div>
+                        <h3 class="text-2xl font-extrabold text-white mb-3">국가인공지능전략위원회</h3>
+                        <p class="text-gray-300 text-sm leading-relaxed mb-6 font-light">
+                            대통령이 직접 위원장을 맡아 범부처 칸막이를 제거한 국가 최상위 기구입니다. 기술·인프라, 산업 AX, 글로벌 협력 등 8개 분과를 운영하여 국가 자원을 통합 배분합니다.
+                        </p>
+                        
+                        <div class="space-y-3 mb-6">
+                            <div class="flex items-start gap-2.5 text-xs text-gray-300">
+                                <i data-lucide="check-circle" class="w-4 h-4 text-cyan-400 shrink-0 mt-0.5"></i>
+                                <span>국가 AI 액션플랜 및 중장기 투자 로드맵 심의·의결</span>
+                            </div>
+                            <div class="flex items-start gap-2.5 text-xs text-gray-300">
+                                <i data-lucide="check-circle" class="w-4 h-4 text-cyan-400 shrink-0 mt-0.5"></i>
+                                <span>민간 기업 규제 애로 해소 및 범부처 신속 인허가 중재</span>
+                            </div>
+                            <div class="flex items-start gap-2.5 text-xs text-gray-300">
+                                <i data-lucide="check-circle" class="w-4 h-4 text-cyan-400 shrink-0 mt-0.5"></i>
+                                <span>산하 <strong>AI 안전연구소(AISI)</strong>와 함께 안전·안보 총괄</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pt-5 border-t border-gray-800 text-[11px] text-cyan-300 font-mono">
+                        STATUS: FULLY OPERATIONAL (PRESIDENTIAL DECREE)
+                    </div>
+                </div>
+
+                <!-- Pillar 2: AI Basic Act -->
+                <div class="cyber-card spotlight-card rounded-3xl p-8 flex flex-col justify-between border-t-4 border-t-purple-500">
+                    <div>
+                        <div class="flex items-center justify-between mb-5">
+                            <span class="text-[11px] font-mono font-bold px-3 py-1 rounded-full bg-purple-950 text-purple-300 border border-purple-400/40">글로벌 규범 입법</span>
+                            <i data-lucide="scale" class="w-6 h-6 text-purple-400"></i>
+                        </div>
+                        <h3 class="text-2xl font-extrabold text-white mb-3">「AI 기본법」 전면 시행</h3>
+                        <p class="text-gray-300 text-sm leading-relaxed mb-6 font-light">
+                            정식 명칭 『인공지능 발전과 신뢰 기반 조성 등에 관한 기본법』으로 산업 진흥 의무를 확립하고, 생성형 AI 워터마크 표시와 고영향 AI 안전망을 조화롭게 규정했습니다.
+                        </p>
+
+                        <div class="space-y-3 mb-6">
+                            <div class="flex items-start gap-2.5 text-xs text-gray-300">
+                                <i data-lucide="check-circle" class="w-4 h-4 text-purple-400 shrink-0 mt-0.5"></i>
+                                <span>사전 규제 대신 기술 혁신을 보장하는 <strong>우선허용·사후규제</strong></span>
+                            </div>
+                            <div class="flex items-start gap-2.5 text-xs text-gray-300">
+                                <i data-lucide="check-circle" class="w-4 h-4 text-purple-400 shrink-0 mt-0.5"></i>
+                                <span>딥페이크 방지를 위한 가시적/비가시적 워터마크 표시제</span>
+                            </div>
+                            <div class="flex items-start gap-2.5 text-xs text-gray-300">
+                                <i data-lucide="check-circle" class="w-4 h-4 text-purple-400 shrink-0 mt-0.5"></i>
+                                <span>스타트업 충격을 방지하는 <strong>1년+ 계도 기간</strong> 및 컨설팅 제공</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pt-5 border-t border-gray-800 text-[11px] text-purple-300 font-mono">
+                        STATUS: ENACTED & GRACE PERIOD ACTIVE
+                    </div>
+                </div>
+
+                <!-- Pillar 3: National AI Compute Center -->
+                <div class="cyber-card spotlight-card rounded-3xl p-8 flex flex-col justify-between border-t-4 border-t-pink-500">
+                    <div>
+                        <div class="flex items-center justify-between mb-5">
+                            <span class="text-[11px] font-mono font-bold px-3 py-1 rounded-full bg-pink-950 text-pink-300 border border-pink-400/40">초격차 피지컬 인프라</span>
+                            <i data-lucide="server" class="w-6 h-6 text-pink-400"></i>
+                        </div>
+                        <h3 class="text-2xl font-extrabold text-white mb-3">국가 AI 컴퓨팅 센터</h3>
+                        <p class="text-gray-300 text-sm leading-relaxed mb-6 font-light">
+                            국내 산·학·연의 최대 병목인 GPU 부족을 해결하기 위해 총사업비 2조 5천억 원 규모의 민관 합작(SPC 코아크)으로 건립되는 초대형 하이퍼스케일 연산 인프라입니다.
+                        </p>
+
+                        <div class="space-y-3 mb-6">
+                            <div class="flex items-start gap-2.5 text-xs text-gray-300">
+                                <i data-lucide="check-circle" class="w-4 h-4 text-pink-400 shrink-0 mt-0.5"></i>
+                                <span>첨단 AI 반도체 1.5만 장 이상 단계적 확보 및 저비용 공급</span>
+                            </div>
+                            <div class="flex items-start gap-2.5 text-xs text-gray-300">
+                                <i data-lucide="check-circle" class="w-4 h-4 text-pink-400 shrink-0 mt-0.5"></i>
+                                <span>대학, 연구소, 유망 스타트업 대상 연산 바우처 대폭 지원</span>
+                            </div>
+                            <div class="flex items-start gap-2.5 text-xs text-gray-300">
+                                <i data-lucide="check-circle" class="w-4 h-4 text-pink-400 shrink-0 mt-0.5"></i>
+                                <span>K-클라우드 프로젝트와 연계된 국산 NPU 반도체 실증 허브</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pt-5 border-t border-gray-800 text-[11px] text-pink-300 font-mono">
+                        STATUS: GROUNDBREAKING & INFRA ACCELERATION
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. AI Basic Act Deep Dive & Futuristic Watermark Simulator -->
+    <section id="ai-act" class="py-24 relative z-10 border-t border-cyan-500/20 bg-[#070b19]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-20">
+                <span class="text-purple-400 text-xs font-mono font-bold tracking-[0.25em] uppercase px-3 py-1 rounded-full bg-purple-950/80 border border-purple-400/30">
+                    LEGAL BLUEPRINT FOR TRUST
+                </span>
+                <h2 class="text-3xl sm:text-5xl font-black text-white mt-4 tracking-tight">
+                    「AI 기본법」 핵심 조항과 인터랙티브 가이드
+                </h2>
+                <p class="text-gray-300 text-sm sm:text-base mt-4 font-light">
+                    세계 각국의 규제 장벽 속에서, 대한민국은 규제보다 혁신을 앞세우면서도 투명성을 보장하는 실용적인 해법을 제시합니다.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <!-- Left: 4 Core Provisions -->
+                <div class="lg:col-span-7 space-y-4">
+                    <div class="cyber-card spotlight-card p-6 rounded-2xl border-l-4 border-l-emerald-400">
+                        <div class="flex items-start gap-4">
+                            <div class="p-3 rounded-xl bg-emerald-500/10 border border-emerald-400/30 text-emerald-300 shrink-0">
+                                <i data-lucide="unlock" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-bold text-white mb-1.5 flex items-center gap-2">
+                                    우선허용 · 사후규제 원칙
+                                    <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-500/40">CORE PRINCIPLE</span>
+                                </h4>
+                                <p class="text-gray-300 text-xs sm:text-sm leading-relaxed font-light">
+                                    사전 인허가형 규제로 인한 비즈니스 지연을 원천 방지합니다. 누구든 AI 기술을 선제적으로 상용화할 수 있도록 지원하고, 실제 위험이 발생할 때 사후 개선 권고 및 시정 명령을 부과합니다.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cyber-card spotlight-card p-6 rounded-2xl border-l-4 border-l-cyan-400">
+                        <div class="flex items-start gap-4">
+                            <div class="p-3 rounded-xl bg-cyan-500/10 border border-cyan-400/30 text-cyan-300 shrink-0">
+                                <i data-lucide="stamp" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-bold text-white mb-1.5 flex items-center gap-2">
+                                    생성형 AI 워터마크 표시 의무화
+                                    <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-cyan-950 text-cyan-300 border border-cyan-500/40">TRANSPARENCY</span>
+                                </h4>
+                                <p class="text-gray-300 text-xs sm:text-sm leading-relaxed font-light">
+                                    생성형 AI로 제작된 텍스트, 이미지, 영상에 이용자가 식별 가능한 시각적 라벨이나 C2PA 규격의 비가시적 메타데이터를 필수로 탑재하여 딥페이크 오용과 위변조를 예방합니다.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cyber-card spotlight-card p-6 rounded-2xl border-l-4 border-l-amber-400">
+                        <div class="flex items-start gap-4">
+                            <div class="p-3 rounded-xl bg-amber-500/10 border border-amber-400/30 text-amber-300 shrink-0">
+                                <i data-lucide="alert-octagon" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-bold text-white mb-1.5 flex items-center gap-2">
+                                    고영향(High-Impact) AI 안전 의무
+                                    <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-950 text-amber-300 border border-amber-500/40">SAFETY GUARD</span>
+                                </h4>
+                                <p class="text-gray-300 text-xs sm:text-sm leading-relaxed font-light">
+                                    사람의 생명, 신체 안전, 기본권(의료 진단, 원자력·에너지 제어, 채용 심사 등)에 영향을 주는 영역의 AI 시스템은 위험 평가 관리 계획 및 사람의 감독 절차를 수립해야 합니다.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cyber-card spotlight-card p-6 rounded-2xl border-l-4 border-l-purple-400">
+                        <div class="flex items-start gap-4">
+                            <div class="p-3 rounded-xl bg-purple-500/10 border border-purple-400/30 text-purple-300 shrink-0">
+                                <i data-lucide="shield-alert" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-bold text-white mb-1.5 flex items-center gap-2">
+                                    스타트업 1년+ 계도 기간 운영
+                                    <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-purple-950 text-purple-300 border border-purple-500/40">GRACE PERIOD</span>
+                                </h4>
+                                <p class="text-gray-300 text-xs sm:text-sm leading-relaxed font-light">
+                                    법 시행 초기에 일률적인 과태료나 처벌을 유예하고, 현장 밀착형 규제 컨설팅과 기술 가이드라인을 제공하여 스타트업이 시장에 안착할 수 있도록 전폭 지원합니다.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Futuristic Watermark Scanner Interactive Demo -->
+                <div class="lg:col-span-5">
+                    <div class="cyber-card spotlight-card p-7 rounded-3xl border border-cyan-400/40 shadow-[0_0_50px_rgba(0,210,255,0.25)]">
+                        <div class="hud-corner hud-tl"></div>
+                        <div class="hud-corner hud-tr"></div>
+                        <div class="hud-corner hud-bl"></div>
+                        <div class="hud-corner hud-br"></div>
+
+                        <div class="flex items-center justify-between mb-5">
+                            <div class="flex items-center gap-2">
+                                <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-ping"></span>
+                                <h4 class="font-mono text-sm font-bold text-white uppercase tracking-wider">AI 워터마크 실시간 판독 시뮬레이터</h4>
+                            </div>
+                            <span class="text-[10px] font-mono bg-cyan-950 text-cyan-300 px-2 py-0.5 rounded border border-cyan-500/40">
+                                ACT § 34
+                            </span>
+                        </div>
+
+                        <!-- Scanner Viewport Area -->
+                        <div class="relative bg-[#050814] rounded-2xl overflow-hidden border border-cyan-500/30 aspect-video flex items-center justify-center p-4">
+                            <!-- Laser Scanning Line Animation -->
+                            <div class="absolute left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-400 to-transparent shadow-[0_0_15px_#00f5d4] animate-scan z-20 pointer-events-none"></div>
+
+                            <!-- Simulated AI Image Display -->
+                            <div class="w-full h-full rounded-xl bg-gradient-to-br from-indigo-950 via-slate-900 to-purple-950 flex flex-col items-center justify-center relative overflow-hidden border border-gray-800">
+                                <div class="absolute inset-0 cyber-grid opacity-30"></div>
+                                <i data-lucide="sparkles" class="w-14 h-14 text-cyan-400/60 mb-2 filter drop-shadow-[0_0_8px_rgba(0,245,212,0.5)]"></i>
+                                <span class="text-xs font-mono text-gray-300 z-10">GENERATIVE AI ARTIFACT (SIMULATION)</span>
+                                <span class="text-[10px] text-gray-500 mt-0.5 z-10">인공지능 모델로 합성된 가상 데이터</span>
+
+                                <!-- Visible Watermark Badge Overlay -->
+                                <div id="watermarkOverlay" class="absolute bottom-3 right-3 px-3 py-1.5 rounded-lg bg-black/85 backdrop-blur-md border border-cyan-400/50 text-cyan-300 text-[11px] font-bold flex items-center gap-2 shadow-[0_0_15px_rgba(0,245,212,0.4)] transition-all z-10">
+                                    <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+                                    <span>AI 생성 콘텐츠 [대한민국 AI기본법]</span>
+                                </div>
+
+                                <!-- Invisible Metadata Tag Simulation -->
+                                <div id="metaOverlay" class="absolute top-3 left-3 text-[10px] bg-purple-950/90 border border-purple-400/50 text-purple-200 px-2.5 py-1 rounded-md font-mono flex items-center gap-1.5 shadow-[0_0_10px_rgba(157,78,221,0.5)] z-10">
+                                    <i data-lucide="binary" class="w-3 h-3 text-purple-400"></i>
+                                    <span>C2PA: Hash_Verified_2026</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Interactive Simulator Controls -->
+                        <div class="mt-6 space-y-3.5">
+                            <div class="flex items-center justify-between p-3 rounded-xl bg-[#090e1f] border border-gray-800">
+                                <span class="text-xs text-gray-200 font-semibold flex items-center gap-2">
+                                    <i data-lucide="eye" class="w-4 h-4 text-cyan-400"></i>
+                                    가시적 워터마크 (이용자 육안 식별)
+                                </span>
+                                <button id="toggleVisibleWatermark" class="px-3.5 py-1.5 text-xs font-mono font-bold rounded-lg bg-cyan-500 text-black hover:bg-cyan-400 transition-all shadow-[0_0_15px_rgba(0,245,212,0.4)]">
+                                    표시 중 (ON)
+                                </button>
+                            </div>
+
+                            <div class="flex items-center justify-between p-3 rounded-xl bg-[#090e1f] border border-gray-800">
+                                <span class="text-xs text-gray-200 font-semibold flex items-center gap-2">
+                                    <i data-lucide="shield-check" class="w-4 h-4 text-purple-400"></i>
+                                    비가시적 워터마크 (기계 검증 메타데이터)
+                                </span>
+                                <button id="toggleMetaWatermark" class="px-3.5 py-1.5 text-xs font-mono font-bold rounded-lg bg-purple-600 text-white hover:bg-purple-500 transition-all shadow-[0_0_15px_rgba(157,78,221,0.4)]">
+                                    암호화 포함 (ON)
+                                </button>
+                            </div>
+
+                            <div class="p-3.5 rounded-xl bg-cyan-950/30 border border-cyan-500/20 text-[11px] text-gray-300 leading-relaxed font-light">
+                                💡 <strong>실무 지침</strong>: 서비스 형태(텍스트 요약, 이미지 생성, 동영상 렌더링 등)에 따라 가시적 또는 비가시적 방식을 유연하게 채택할 수 있습니다.
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. Infrastructure & AI Transformation (AX) -->
+    <section id="infra" class="py-24 relative z-10 border-t border-cyan-500/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-20">
+                <span class="text-cyan-400 text-xs font-mono font-bold tracking-[0.25em] uppercase px-3 py-1 rounded-full bg-cyan-950/80 border border-cyan-400/30">
+                    PHYSICAL INFRASTRUCTURE & AX
+                </span>
+                <h2 class="text-3xl sm:text-5xl font-black text-white mt-4 tracking-tight">
+                    국가 AI 고속도로 & <span class="holo-text">전 산업 AX 대전환</span>
+                </h2>
+                <p class="text-gray-300 text-sm sm:text-base mt-4 font-light">
+                    연산 파워의 국가적 지원과 데이터 개방, 주력 산업과의 융합으로 대한민국 제조업과 공공 행정의 생산성을 혁신합니다.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Computing Center Card -->
+                <div class="cyber-card spotlight-card p-8 rounded-3xl border border-cyan-500/30">
+                    <div class="hud-corner hud-tl"></div>
+                    <div class="hud-corner hud-tr"></div>
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="p-3.5 rounded-2xl bg-cyan-500/10 border border-cyan-400/40 text-cyan-300">
+                            <i data-lucide="server" class="w-7 h-7"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs font-mono text-cyan-400 font-bold uppercase">SUPERCOMPUTING NEXUS</span>
+                            <h3 class="text-2xl font-black text-white">국가 AI 컴퓨팅 센터 (솔라시도)</h3>
+                        </div>
+                    </div>
+
+                    <p class="text-gray-300 text-sm leading-relaxed mb-6 font-light">
+                        전남 해남 솔라시도 데이터센터 파크에 민관 합작(삼성SDS 컨소시엄, SPC 코아크)으로 건립 중인 국내 최대 규모의 AI 전용 인프라입니다. 총 2조 5천억 원을 투입해 첨단 GPU와 국산 반도체를 결집합니다.
+                    </p>
+
+                    <div class="space-y-3.5">
+                        <div class="p-4 rounded-xl bg-[#090e1f] border border-gray-800 flex items-start gap-3">
+                            <i data-lucide="zap" class="w-5 h-5 text-cyan-400 shrink-0 mt-0.5"></i>
+                            <div>
+                                <span class="font-bold text-white text-xs block mb-1">첨단 GPU 1.5만 장 이상 공급</span>
+                                <p class="text-[11px] text-gray-400 font-light">대학·연구소·스타트업에 정부 바우처를 통해 시장가 대비 파격적으로 저렴한 연산 자원을 지원합니다.</p>
+                            </div>
+                        </div>
+
+                        <div class="p-4 rounded-xl bg-[#090e1f] border border-gray-800 flex items-start gap-3">
+                            <i data-lucide="cpu" class="w-5 h-5 text-cyan-400 shrink-0 mt-0.5"></i>
+                            <div>
+                                <span class="font-bold text-white text-xs block mb-1">K-클라우드 연계 및 국산 NPU 실증</span>
+                                <p class="text-[11px] text-gray-400 font-light">외산 GPU 종속을 탈피하기 위해 국산 초저전력 NPU 및 PIM(지능형 메모리) 기술을 데이터센터에 실증 적용합니다.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AX Transformation Card -->
+                <div class="cyber-card spotlight-card p-8 rounded-3xl border border-purple-500/30">
+                    <div class="hud-corner hud-tl"></div>
+                    <div class="hud-corner hud-tr"></div>
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="p-3.5 rounded-2xl bg-purple-500/10 border border-purple-400/40 text-purple-300">
+                            <i data-lucide="network" class="w-7 h-7"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs font-mono text-purple-400 font-bold uppercase">AI TRANSFORMATION (AX)</span>
+                            <h3 class="text-2xl font-black text-white">대한민국 주력 산업의 AX 가속</h3>
+                        </div>
+                    </div>
+
+                    <p class="text-gray-300 text-sm leading-relaxed mb-6 font-light">
+                        세계 1위권의 한국 제조업(조선, 반도체, 이차전지, 자동차)과 바이오·헬스케어에 산업 특화 도메인 sLLM 및 온디바이스 AI를 이식하여 자율 제조 혁신을 선도합니다.
+                    </p>
+
+                    <div class="space-y-3.5">
+                        <div class="p-4 rounded-xl bg-[#090e1f] border border-gray-800 flex items-start gap-3">
+                            <i data-lucide="activity" class="w-5 h-5 text-purple-400 shrink-0 mt-0.5"></i>
+                            <div>
+                                <span class="font-bold text-white text-xs block mb-1">공공·행정 AI 일상화 프로젝트</span>
+                                <p class="text-[11px] text-gray-400 font-light">복지 사각지대 조기 발굴, 홍수·산불 등 기상이변 조기 경보, 행정 서류 자동 분석에 AI를 전면 도입합니다.</p>
+                            </div>
+                        </div>
+
+                        <div class="p-4 rounded-xl bg-[#090e1f] border border-gray-800 flex items-start gap-3">
+                            <i data-lucide="file-check" class="w-5 h-5 text-purple-400 shrink-0 mt-0.5"></i>
+                            <div>
+                                <span class="font-bold text-white text-xs block mb-1">데이터 저작권 및 개인정보 공정이용 지침</span>
+                                <p class="text-[11px] text-gray-400 font-light">생성형 AI 학습용 데이터 활용 가이드라인과 가명정보 공정이용 규정을 정비하여 데이터 활용 불확실성을 해소합니다.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. Interactive Self-Diagnosis Tool -->
+    <section id="diagnosis" class="py-24 relative z-10 border-t border-cyan-500/20 bg-[#060a18]">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-14">
+                <span class="text-cyan-400 text-xs font-mono font-bold tracking-[0.25em] uppercase px-3 py-1 rounded-full bg-cyan-950/80 border border-cyan-400/30">
+                    INTERACTIVE AUDIT TOOL
+                </span>
+                <h2 class="text-3xl sm:text-5xl font-black text-white mt-4 tracking-tight">
+                    기업 AI 정책 & 규제 <span class="holo-text">원클릭 자가진단</span>
+                </h2>
+                <p class="text-gray-300 text-sm sm:text-base mt-3 font-light">
+                    우리 기업의 비즈니스가 어떤 규제 의무와 정부 지원 사업에 해당하는지 3가지 문항으로 즉시 분석해 드립니다.
+                </p>
+            </div>
+
+            <!-- Quiz Box -->
+            <div class="cyber-card spotlight-card p-8 sm:p-12 rounded-3xl border border-cyan-500/40 shadow-[0_0_60px_rgba(0,210,255,0.2)]">
+                <div class="hud-corner hud-tl"></div>
+                <div class="hud-corner hud-tr"></div>
+                <div class="hud-corner hud-bl"></div>
+                <div class="hud-corner hud-br"></div>
+
+                <form id="diagnosisForm" class="space-y-8">
+                    <!-- Q1 -->
+                    <div class="p-5 rounded-2xl bg-[#080d1e] border border-cyan-500/20">
+                        <label class="text-sm sm:text-base font-bold text-white block mb-3.5 flex items-center gap-2">
+                            <span class="w-6 h-6 rounded-lg bg-cyan-500/20 text-cyan-300 flex items-center justify-center text-xs font-mono">01</span>
+                            귀사에서 개발 또는 서비스하는 AI가 텍스트, 이미지, 영상 등을 생성하는 ‘생성형 AI’인가요?
+                        </label>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <label class="flex items-center gap-3 p-3.5 rounded-xl border border-gray-800 bg-[#060813] cursor-pointer hover:border-cyan-400 transition group">
+                                <input type="radio" name="q1" value="yes" class="w-4 h-4 accent-cyan-400" required>
+                                <span class="text-xs sm:text-sm text-gray-200 group-hover:text-white font-medium">예 (생성형 AI 모델/서비스)</span>
+                            </label>
+                            <label class="flex items-center gap-3 p-3.5 rounded-xl border border-gray-800 bg-[#060813] cursor-pointer hover:border-cyan-400 transition group">
+                                <input type="radio" name="q1" value="no" class="w-4 h-4 accent-cyan-400">
+                                <span class="text-xs sm:text-sm text-gray-200 group-hover:text-white font-medium">아니오 (예측, 분류, 분석형 AI)</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Q2 -->
+                    <div class="p-5 rounded-2xl bg-[#080d1e] border border-cyan-500/20">
+                        <label class="text-sm sm:text-base font-bold text-white block mb-3.5 flex items-center gap-2">
+                            <span class="w-6 h-6 rounded-lg bg-purple-500/20 text-purple-300 flex items-center justify-center text-xs font-mono">02</span>
+                            AI 시스템이 의료 진단, 원자력·에너지, 채용 심사 등 국민의 생명·기본권에 직결되는 고영향 영역인가요?
+                        </label>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <label class="flex items-center gap-3 p-3.5 rounded-xl border border-gray-800 bg-[#060813] cursor-pointer hover:border-purple-400 transition group">
+                                <input type="radio" name="q2" value="yes" class="w-4 h-4 accent-purple-400" required>
+                                <span class="text-xs sm:text-sm text-gray-200 group-hover:text-white font-medium">예 (고영향 관리 분야 해당)</span>
+                            </label>
+                            <label class="flex items-center gap-3 p-3.5 rounded-xl border border-gray-800 bg-[#060813] cursor-pointer hover:border-purple-400 transition group">
+                                <input type="radio" name="q2" value="no" class="w-4 h-4 accent-purple-400">
+                                <span class="text-xs sm:text-sm text-gray-200 group-hover:text-white font-medium">아니오 (일반 비즈니스 및 엔터테인먼트 등)</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Q3 -->
+                    <div class="p-5 rounded-2xl bg-[#080d1e] border border-cyan-500/20">
+                        <label class="text-sm sm:text-base font-bold text-white block mb-3.5 flex items-center gap-2">
+                            <span class="w-6 h-6 rounded-lg bg-pink-500/20 text-pink-300 flex items-center justify-center text-xs font-mono">03</span>
+                            초거대 모델 학습 및 서빙을 위한 GPU 연산 자원 부족이나 비용 부담을 겪고 계신가요?
+                        </label>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <label class="flex items-center gap-3 p-3.5 rounded-xl border border-gray-800 bg-[#060813] cursor-pointer hover:border-pink-400 transition group">
+                                <input type="radio" name="q3" value="yes" class="w-4 h-4 accent-pink-400" required>
+                                <span class="text-xs sm:text-sm text-gray-200 group-hover:text-white font-medium">예 (정부 고성능 컴퓨팅 바우처 필요)</span>
+                            </label>
+                            <label class="flex items-center gap-3 p-3.5 rounded-xl border border-gray-800 bg-[#060813] cursor-pointer hover:border-pink-400 transition group">
+                                <input type="radio" name="q3" value="no" class="w-4 h-4 accent-pink-400">
+                                <span class="text-xs sm:text-sm text-gray-200 group-hover:text-white font-medium">아니오 (자체 클러스터 보유 또는 소형 모델)</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="w-full py-4 rounded-2xl bg-gradient-to-r from-cyan-400 via-indigo-500 to-pink-500 text-white font-black text-sm tracking-wider uppercase shadow-[0_0_35px_rgba(0,210,255,0.4)] hover:shadow-[0_0_50px_rgba(0,210,255,0.7)] hover:scale-[1.01] transition-all">
+                        자가진단 리포트 생성하기
+                    </button>
+                </form>
+
+                <!-- Diagnosis Results Area -->
+                <div id="resultArea" class="hidden mt-10 pt-8 border-t border-cyan-500/30">
+                    <div class="p-6 sm:p-8 rounded-2xl bg-gradient-to-b from-[#091129] to-[#060914] border border-cyan-400/50 shadow-2xl space-y-5">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-2.5">
+                                <span class="w-3 h-3 rounded-full bg-cyan-400 animate-ping"></span>
+                                <h4 class="text-lg font-black text-white">맞춤형 규제 준수 & 정부 지원 리포트</h4>
+                            </div>
+                            <span class="text-xs font-mono text-cyan-400 bg-cyan-950 px-2.5 py-1 rounded border border-cyan-500/40">AUDIT RESULT</span>
+                        </div>
+
+                        <div id="resultContent" class="text-xs sm:text-sm text-gray-200 space-y-3 font-light leading-relaxed">
+                            <!-- Dynamic Content Injected -->
+                        </div>
+
+                        <div class="pt-4 border-t border-gray-800/80 flex flex-wrap gap-2 text-xs font-mono">
+                            <span class="px-3 py-1 rounded-md bg-cyan-950/80 text-cyan-300 border border-cyan-500/30">✓ 계도기간 1년 우선 적용</span>
+                            <span class="px-3 py-1 rounded-md bg-purple-950/80 text-purple-300 border border-purple-500/30">✓ AI 안전연구소 가이드라인 매핑</span>
+                            <span class="px-3 py-1 rounded-md bg-pink-950/80 text-pink-300 border border-pink-500/30">✓ NIPA/과기부 사업 지원 가능</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. Policy Timeline Roadmap -->
+    <section class="py-24 relative z-10">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-20">
+                <span class="text-cyan-400 text-xs font-mono font-bold tracking-[0.25em] uppercase px-3 py-1 rounded-full bg-cyan-950/80 border border-cyan-400/30">
+                    HISTORIC MILESTONES
+                </span>
+                <h2 class="text-3xl sm:text-5xl font-black text-white mt-4 tracking-tight">
+                    대한민국 AI 정책의 <span class="holo-text">대항해 로드맵</span>
+                </h2>
+            </div>
+
+            <div class="relative border-l-2 border-cyan-400/40 ml-4 md:ml-36 space-y-12">
+                <!-- Milestone 1 -->
+                <div class="relative pl-8 group">
+                    <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-cyan-400 border-4 border-[#050711] group-hover:scale-150 transition-all shadow-[0_0_15px_#00f5d4]"></div>
+                    <div class="text-xs font-mono text-cyan-400 font-bold mb-1">2024. 05</div>
+                    <h3 class="text-xl font-bold text-white">AI 서울 정상회의 (AI Seoul Summit) 개최</h3>
+                    <p class="text-gray-400 text-xs sm:text-sm mt-1.5 leading-relaxed font-light">
+                        ‘안전·혁신·포용’의 서울 선언문 채택. 글로벌 10개국 정상들과 함께 국제 AI 안전 거버넌스 중재자로 도약.
+                    </p>
+                </div>
+
+                <!-- Milestone 2 -->
+                <div class="relative pl-8 group">
+                    <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-purple-400 border-4 border-[#050711] group-hover:scale-150 transition-all shadow-[0_0_15px_#9d4edd]"></div>
+                    <div class="text-xs font-mono text-purple-400 font-bold mb-1">2024. 09</div>
+                    <h3 class="text-xl font-bold text-white">대통령 직속 국가인공지능위원회 출범</h3>
+                    <p class="text-gray-400 text-xs sm:text-sm mt-1.5 leading-relaxed font-light">
+                        민관 최고 전문가 65인이 결집한 범부처 컨트롤타워 가동. 글로벌 AI 3대 강국(G3) 도약 전략 선포.
+                    </p>
+                </div>
+
+                <!-- Milestone 3 -->
+                <div class="relative pl-8 group">
+                    <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-pink-400 border-4 border-[#050711] group-hover:scale-150 transition-all shadow-[0_0_15px_#ff007f]"></div>
+                    <div class="text-xs font-mono text-pink-400 font-bold mb-1">2024. 11</div>
+                    <h3 class="text-xl font-bold text-white">AI 안전연구소(AISI) 판교 공식 개소</h3>
+                    <p class="text-gray-400 text-xs sm:text-sm mt-1.5 leading-relaxed font-light">
+                        AI 위험도 과학적 분석 및 모델 평가 전담 기관. 글로벌 AI 안전연구소 네트워크의 핵심 허브로 안착.
+                    </p>
+                </div>
+
+                <!-- Milestone 4 -->
+                <div class="relative pl-8 group">
+                    <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-emerald-400 border-4 border-[#050711] group-hover:scale-150 transition-all shadow-[0_0_15px_#10b981]"></div>
+                    <div class="text-xs font-mono text-emerald-400 font-bold mb-1">2025 ~ 2026</div>
+                    <h3 class="text-xl font-bold text-white">「인공지능 기본법」 제정 및 전면 시행</h3>
+                    <p class="text-gray-400 text-xs sm:text-sm mt-1.5 leading-relaxed font-light">
+                        우선허용·사후규제 원칙과 생성형 AI 워터마크 의무화 정착. 최소 1년 이상의 현장 계도 기간 운영으로 기업 혼란 최소화.
+                    </p>
+                </div>
+
+                <!-- Milestone 5 -->
+                <div class="relative pl-8 group">
+                    <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-blue-400 border-4 border-[#050711] group-hover:scale-150 transition-all shadow-[0_0_15px_#3b82f6]"></div>
+                    <div class="text-xs font-mono text-blue-400 font-bold mb-1">2026 ~ 2030 (목표)</div>
+                    <h3 class="text-xl font-bold text-white">국가 AI 컴퓨팅 센터 완공 및 글로벌 G3 완성</h3>
+                    <p class="text-gray-400 text-xs sm:text-sm mt-1.5 leading-relaxed font-light">
+                        전남 해남 솔라시도 2.5조 원 규모 센터 완공, 국산 NPU 자립 생태계 구축 및 대한민국 전 산업 100% AX 달성.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 9. FAQ Accordion -->
+    <section id="faq" class="py-24 relative z-10 border-t border-cyan-500/20 bg-[#060a19]">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-cyan-400 text-xs font-mono font-bold tracking-[0.25em] uppercase px-3 py-1 rounded-full bg-cyan-950/80 border border-cyan-400/30">
+                    FREQUENTLY ASKED QUESTIONS
+                </span>
+                <h2 class="text-3xl sm:text-5xl font-black text-white mt-4 tracking-tight">자주 묻는 질문 (FAQ)</h2>
+                <p class="text-gray-400 text-sm mt-3 font-light">기업과 국민이 가장 많이 문의하는 정책 관련 핵심 질의응답입니다.</p>
+            </div>
+
+            <div class="space-y-4" id="faqAccordion">
+                <!-- FAQ 1 -->
+                <div class="cyber-card rounded-2xl p-6 border border-cyan-500/20 cursor-pointer faq-item">
+                    <div class="flex items-center justify-between">
+                        <h4 class="text-sm sm:text-base font-bold text-white flex items-center gap-3">
+                            <span class="text-cyan-400 font-mono text-xs">Q1.</span>
+                            AI 기본법이 시행되면 초기 스타트업의 규제 부담이 과도해지나요?
+                        </h4>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-cyan-400 transform transition-transform faq-icon shrink-0"></i>
+                    </div>
+                    <p class="text-xs sm:text-sm text-gray-300 mt-4 hidden faq-answer leading-relaxed font-light border-t border-gray-800/80 pt-3">
+                        그렇지 않습니다. 대한민국 AI 기본법은 <strong>'우선허용·사후규제'</strong>를 핵심 기조로 삼아 사전 인허가형 규제를 도입하지 않았습니다. 또한 중소·스타트업의 현장 적응을 위해 최소 1년 이상의 <strong>계도 기간</strong>을 두어, 즉각적인 과태료 처분 대신 맞춤형 컨설팅과 기술 가이드라인을 지원합니다.
+                    </p>
+                </div>
+
+                <!-- FAQ 2 -->
+                <div class="cyber-card rounded-2xl p-6 border border-cyan-500/20 cursor-pointer faq-item">
+                    <div class="flex items-center justify-between">
+                        <h4 class="text-sm sm:text-base font-bold text-white flex items-center gap-3">
+                            <span class="text-purple-400 font-mono text-xs">Q2.</span>
+                            생성형 AI 워터마크는 반드시 이미지에 글자를 박아야만 하나요?
+                        </h4>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-purple-400 transform transition-transform faq-icon shrink-0"></i>
+                    </div>
+                    <p class="text-xs sm:text-sm text-gray-300 mt-4 hidden faq-answer leading-relaxed font-light border-t border-gray-800/80 pt-3">
+                        아닙니다. 육안으로 확인 가능한 <strong>가시적 워터마크</strong>(텍스트, 로고 등)뿐만 아니라, 육안으로는 보이지 않지만 소프트웨어가 AI 생성물임을 판독할 수 있는 <strong>비가시적 워터마크(C2PA 등 메타데이터 규격)</strong>도 모두 허용됩니다. 서비스 UI와 사용자 경험을 해치지 않는 선에서 유연하게 적용할 수 있습니다.
+                    </p>
+                </div>
+
+                <!-- FAQ 3 -->
+                <div class="cyber-card rounded-2xl p-6 border border-cyan-500/20 cursor-pointer faq-item">
+                    <div class="flex items-center justify-between">
+                        <h4 class="text-sm sm:text-base font-bold text-white flex items-center gap-3">
+                            <span class="text-pink-400 font-mono text-xs">Q3.</span>
+                            '국가 AI 컴퓨팅 센터'의 고성능 GPU는 어떤 방식으로 지원받나요?
+                        </h4>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-pink-400 transform transition-transform faq-icon shrink-0"></i>
+                    </div>
+                    <p class="text-xs sm:text-sm text-gray-300 mt-4 hidden faq-answer leading-relaxed font-light border-t border-gray-800/80 pt-3">
+                        과학기술정보통신부와 정보통신산업진흥원(NIPA)이 주관하는 <strong>'AI 고성능 컴퓨팅 지원 사업'</strong> 및 <strong>'AI 바우처'</strong> 정기 공모를 통해 신청할 수 있습니다. 선정된 스타트업과 연구팀은 전남 해남 솔라시도 센터 등에 확보된 첨단 GPU 인프라를 바우처 형태로 무상 또는 대폭 할인된 비용으로 이용할 수 있습니다.
+                    </p>
+                </div>
+
+                <!-- FAQ 4 -->
+                <div class="cyber-card rounded-2xl p-6 border border-cyan-500/20 cursor-pointer faq-item">
+                    <div class="flex items-center justify-between">
+                        <h4 class="text-sm sm:text-base font-bold text-white flex items-center gap-3">
+                            <span class="text-emerald-400 font-mono text-xs">Q4.</span>
+                            판교 'AI 안전연구소(AISI)'는 일반 민간 기업에 어떤 혜택을 제공하나요?
+                        </h4>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-emerald-400 transform transition-transform faq-icon shrink-0"></i>
+                    </div>
+                    <p class="text-xs sm:text-sm text-gray-300 mt-4 hidden faq-answer leading-relaxed font-light border-t border-gray-800/80 pt-3">
+                        국내 기업이 자체적으로 수행하기 어려운 AI 레드팀(모의 해킹/악용 검증) 테스트 툴킷, 환각 현상(Hallucination) 억제 지침, 편향성 평가 데이터셋을 무료 또는 오픈소스로 제공합니다. 이를 통해 미국, EU 등 해외 시장 진출 시 요구되는 글로벌 안전 인증 취득을 적극 지원합니다.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 10. Footer -->
+    <footer class="relative z-10 bg-[#04060d] border-t border-cyan-500/20 py-16 text-xs text-gray-400">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-8 pb-10 border-b border-gray-900">
+                <div class="flex items-center gap-4">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-400 to-pink-500 p-[1.5px] shadow-[0_0_20px_rgba(0,245,212,0.4)]">
+                        <div class="w-full h-full bg-[#070b18] rounded-[9px] flex items-center justify-center">
+                            <i data-lucide="cpu" class="w-5 h-5 text-cyan-300"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="font-extrabold text-white text-base tracking-tight">대한민국 AI 정책 공식 홍보 포털</span>
+                        <span class="block text-gray-500 text-[11px] font-mono mt-0.5">REPUBLIC OF KOREA NATIONAL AI INITIATIVE HUB</span>
+                    </div>
+                </div>
+
+                <!-- Related Links -->
+                <div class="flex flex-wrap items-center justify-center gap-4 text-xs font-medium">
+                    <a href="https://www.msit.go.kr" target="_blank" class="hover:text-cyan-300 transition flex items-center gap-1">
+                        과학기술정보통신부 <i data-lucide="external-link" class="w-3 h-3 text-gray-600"></i>
+                    </a>
+                    <span class="text-gray-800">•</span>
+                    <a href="#" class="hover:text-cyan-300 transition flex items-center gap-1">
+                        국가인공지능전략위원회 <i data-lucide="external-link" class="w-3 h-3 text-gray-600"></i>
+                    </a>
+                    <span class="text-gray-800">•</span>
+                    <a href="#" class="hover:text-cyan-300 transition flex items-center gap-1">
+                        AI 안전연구소(AISI) <i data-lucide="external-link" class="w-3 h-3 text-gray-600"></i>
+                    </a>
+                    <span class="text-gray-800">•</span>
+                    <a href="#" class="hover:text-cyan-300 transition flex items-center gap-1">
+                        NIPA 정보통신산업진흥원 <i data-lucide="external-link" class="w-3 h-3 text-gray-600"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-[11px] text-gray-600">
+                <p>© 2026 대한민국 AI 정책 허브. 본 포털은 대한민국의 최신 인공지능 정책 로드맵과 법제도를 알리는 공식 안내 웹사이트입니다.</p>
+                <div class="flex gap-4 font-mono text-cyan-500/80">
+                    <span>VISION: GLOBAL AI G3</span>
+                    <span>PRINCIPLE: PERMIT-FIRST</span>
+                    <span>SAFETY: AISI NETWORK</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive Scripts: Particle Canvas, Spotlight, Count-Up, Watermark, Diagnosis, Accordion -->
+    <script>
+        // 1. Initialize Lucide Icons
+        lucide.createIcons();
+
+        // 2. Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // 3. Interactive Neural Particle Network Canvas
+        const canvas = document.getElementById('neuralCanvas');
+        const ctx = canvas.getContext('2d');
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            initParticles();
+        });
+
+        let particles = [];
+        const particleCount = Math.min(Math.floor(window.innerWidth / 16), 85);
+        let mouse = { x: null, y: null, radius: 150 };
+
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.x;
+            mouse.y = e.y;
+        });
+
+        window.addEventListener('mouseout', () => {
+            mouse.x = null;
+            mouse.y = null;
+        });
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 0.8;
+                this.vy = (Math.random() - 0.5) * 0.8;
+                this.radius = Math.random() * 2 + 1;
+                this.baseAlpha = Math.random() * 0.5 + 0.2;
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                if (this.x < 0 || this.x > width) this.vx = -this.vx;
+                if (this.y < 0 || this.y > height) this.vy = -this.vy;
+
+                // Mouse repel / interact
+                if (mouse.x != null && mouse.y != null) {
+                    let dx = mouse.x - this.x;
+                    let dy = mouse.y - this.y;
+                    let dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < mouse.radius) {
+                        let force = (mouse.radius - dist) / mouse.radius;
+                        this.x -= (dx / dist) * force * 3;
+                        this.y -= (dy / dist) * force * 3;
+                    }
+                }
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(0, 245, 212, ${this.baseAlpha})`;
+                ctx.shadowColor = '#00f5d4';
+                ctx.shadowBlur = 8;
+                ctx.fill();
+                ctx.shadowBlur = 0;
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+        initParticles();
+
+        function animateNeuralNet() {
+            ctx.clearRect(0, 0, width, height);
+
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+
+                for (let j = i + 1; j < particles.length; j++) {
+                    let dx = particles[i].x - particles[j].x;
+                    let dy = particles[i].y - particles[j].y;
+                    let dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < 130) {
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        let alpha = (1 - dist / 130) * 0.25;
+                        ctx.strokeStyle = `rgba(0, 210, 255, ${alpha})`;
+                        ctx.lineWidth = 0.75;
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animateNeuralNet);
+        }
+        animateNeuralNet();
+
+        // 4. Spotlight Card Effect (Track mouse relative position on cards)
+        document.querySelectorAll('.spotlight-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+
+        // 5. KPI Count-Up Animation
+        const counters = document.querySelectorAll('.counter');
+        let countStarted = false;
+        function runCounters() {
+            counters.forEach(counter => {
+                const target = parseFloat(counter.getAttribute('data-target'));
+                const isFloat = target % 1 !== 0;
+                let current = 0;
+                const increment = target / 60;
+                const update = () => {
+                    current += increment;
+                    if (current < target) {
+                        counter.textContent = isFloat ? current.toFixed(1) : Math.ceil(current);
+                        requestAnimationFrame(update);
+                    } else {
+                        counter.textContent = isFloat ? target.toFixed(1) : target;
+                    }
+                };
+                update();
+            });
+        }
+        window.addEventListener('scroll', () => {
+            if (!countStarted && window.scrollY > 50) {
+                countStarted = true;
+                runCounters();
+            }
+        });
+        // Initial check if opened already scrolled
+        if (window.scrollY > 50 && !countStarted) {
+            countStarted = true;
+            runCounters();
+        }
+
+        // 6. Watermark Simulator Interactivity
+        const toggleVisibleBtn = document.getElementById('toggleVisibleWatermark');
+        const watermarkOverlay = document.getElementById('watermarkOverlay');
+        let isVisibleOn = true;
+
+        toggleVisibleBtn.addEventListener('click', () => {
+            isVisibleOn = !isVisibleOn;
+            if (isVisibleOn) {
+                watermarkOverlay.style.display = 'flex';
+                toggleVisibleBtn.textContent = '표시 중 (ON)';
+                toggleVisibleBtn.className = 'px-3.5 py-1.5 text-xs font-mono font-bold rounded-lg bg-cyan-500 text-black hover:bg-cyan-400 transition-all shadow-[0_0_15px_rgba(0,245,212,0.4)]';
+            } else {
+                watermarkOverlay.style.display = 'none';
+                toggleVisibleBtn.textContent = '숨김 (OFF)';
+                toggleVisibleBtn.className = 'px-3.5 py-1.5 text-xs font-mono font-bold rounded-lg bg-gray-800 text-gray-400 hover:bg-gray-700 transition-all';
+            }
+        });
+
+        const toggleMetaBtn = document.getElementById('toggleMetaWatermark');
+        const metaOverlay = document.getElementById('metaOverlay');
+        let isMetaOn = true;
+
+        toggleMetaBtn.addEventListener('click', () => {
+            isMetaOn = !isMetaOn;
+            if (isMetaOn) {
+                metaOverlay.style.display = 'flex';
+                toggleMetaBtn.textContent = '암호화 포함 (ON)';
+                toggleMetaBtn.className = 'px-3.5 py-1.5 text-xs font-mono font-bold rounded-lg bg-purple-600 text-white hover:bg-purple-500 transition-all shadow-[0_0_15px_rgba(157,78,221,0.4)]';
+            } else {
+                metaOverlay.style.display = 'none';
+                toggleMetaBtn.textContent = '메타데이터 없음 (OFF)';
+                toggleMetaBtn.className = 'px-3.5 py-1.5 text-xs font-mono font-bold rounded-lg bg-gray-800 text-gray-400 hover:bg-gray-700 transition-all';
+            }
+        });
+
+        // 7. Interactive Self-Diagnosis Logic
+        const diagnosisForm = document.getElementById('diagnosisForm');
+        const resultArea = document.getElementById('resultArea');
+        const resultContent = document.getElementById('resultContent');
+
+        diagnosisForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const q1 = document.querySelector('input[name="q1"]:checked')?.value;
+            const q2 = document.querySelector('input[name="q2"]:checked')?.value;
+            const q3 = document.querySelector('input[name="q3"]:checked')?.value;
+
+            let report = [];
+
+            if (q1 === 'yes') {
+                report.push(`
+                    <div class="p-3.5 rounded-xl bg-cyan-950/60 border border-cyan-500/30 flex items-start gap-3">
+                        <span class="p-1.5 rounded-md bg-cyan-500/20 text-cyan-300 shrink-0 font-mono text-xs font-bold">Q1</span>
+                        <div>
+                            <strong class="text-cyan-300 font-bold block mb-1">생성형 AI 워터마크 표시 의무 적용:</strong>
+                            텍스트·이미지·영상 결과물에 가시적 텍스트 라벨 표기 또는 C2PA 표준 비가시적 메타데이터 삽입 모듈을 반드시 구비해야 합니다. (단, 1년 계도 기간 동안 무료 기술 컨설팅 지원 대상)
+                        </div>
+                    </div>
+                `);
+            } else {
+                report.push(`
+                    <div class="p-3.5 rounded-xl bg-gray-900/60 border border-gray-800 flex items-start gap-3">
+                        <span class="p-1.5 rounded-md bg-gray-800 text-gray-300 shrink-0 font-mono text-xs font-bold">Q1</span>
+                        <div>
+                            <strong class="text-gray-200 font-bold block mb-1">일반/분석형 AI 시스템:</strong>
+                            워터마크 표시 의무 대상은 아니며, 데이터 신뢰성과 설명가능성(XAI) 가이드라인 준수를 권장합니다.
+                        </div>
+                    </div>
+                `);
+            }
+
+            if (q2 === 'yes') {
+                report.push(`
+                    <div class="p-3.5 rounded-xl bg-purple-950/60 border border-purple-500/30 flex items-start gap-3">
+                        <span class="p-1.5 rounded-md bg-purple-500/20 text-purple-300 shrink-0 font-mono text-xs font-bold">Q2</span>
+                        <div>
+                            <strong class="text-purple-300 font-bold block mb-1">고영향(High-impact) AI 안전 의무 관리:</strong>
+                            위험 관리 체계 수립 및 인간의 개입/감독 권한 보장이 필요합니다. AI 안전연구소(AISI)의 ‘사전 안전 검증 가이드’ 및 편향성 제거 툴킷을 연계 활용할 수 있습니다.
+                        </div>
+                    </div>
+                `);
+            } else {
+                report.push(`
+                    <div class="p-3.5 rounded-xl bg-emerald-950/60 border border-emerald-500/30 flex items-start gap-3">
+                        <span class="p-1.5 rounded-md bg-emerald-500/20 text-emerald-300 shrink-0 font-mono text-xs font-bold">Q2</span>
+                        <div>
+                            <strong class="text-emerald-300 font-bold block mb-1">우선허용·사후규제 전폭 혜택:</strong>
+                            사전 인허가 절차 없이 즉시 상용화가 가능하며, 문제 발생 시에만 시정 명령 중심의 자율 개선 제도가 적용됩니다.
+                        </div>
+                    </div>
+                `);
+            }
+
+            if (q3 === 'yes') {
+                report.push(`
+                    <div class="p-3.5 rounded-xl bg-pink-950/60 border border-pink-500/30 flex items-start gap-3">
+                        <span class="p-1.5 rounded-md bg-pink-500/20 text-pink-300 shrink-0 font-mono text-xs font-bold">Q3</span>
+                        <div>
+                            <strong class="text-pink-300 font-bold block mb-1">국가 AI 컴퓨팅 센터 바우처 우선 신청 추천:</strong>
+                            과기정통부/NIPA의 AI 바우처 및 초고성능 연산 인프라 지원 사업에 신청하여 첨단 GPU 및 국산 NPU 자원을 전액 또는 대폭 감면받을 수 있습니다.
+                        </div>
+                    </div>
+                `);
+            } else {
+                report.push(`
+                    <div class="p-3.5 rounded-xl bg-blue-950/60 border border-blue-500/30 flex items-start gap-3">
+                        <span class="p-1.5 rounded-md bg-blue-500/20 text-blue-300 shrink-0 font-mono text-xs font-bold">Q3</span>
+                        <div>
+                            <strong class="text-blue-300 font-bold block mb-1">자체 인프라 보안 및 저작권 점검:</strong>
+                            클라우드 보안 인증(CSAP) 및 정부의 생성형 AI 저작권·개인정보 공정이용 가이드라인을 최종 점검하세요.
+                        </div>
+                    </div>
+                `);
+            }
+
+            resultContent.innerHTML = report.join('');
+            resultArea.classList.remove('hidden');
+            resultArea.scrollIntoView({ behavior: 'smooth' });
+        });
+
+        // 8. FAQ Accordion Logic
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const answer = item.querySelector('.faq-answer');
+                const icon = item.querySelector('.faq-icon');
+                const isHidden = answer.classList.contains('hidden');
+
+                // Close all others
+                document.querySelectorAll('.faq-answer').forEach(a => a.classList.add('hidden'));
+                document.querySelectorAll('.faq-icon').forEach(i => i.classList.remove('rotate-180'));
+
+                if (isHidden) {
+                    answer.classList.remove('hidden');
+                    icon.classList.add('rotate-180');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
